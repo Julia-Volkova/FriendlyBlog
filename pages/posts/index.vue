@@ -6,7 +6,6 @@
 
 <script>
   import PostPreview from "~/components/Posts/PostPreview";
-  import PostList from "~/components/Posts/PostList";
   import axios from 'axios';
 
   export default {
@@ -14,7 +13,6 @@
     scrollToTop: true,
     props: {},
     components: {
-      PostList,
       PostPreview,
     },
     data() {

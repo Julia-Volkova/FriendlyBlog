@@ -1,13 +1,12 @@
 <template>
-    <div class="admin-post-page">
-        <section class="update-form">
-            <AdminPostForm :post="loadedPost" @submit="onSubmitted"/>
-        </section>
-    </div>
+  <div class="admin-post-page">
+    <section class="update-form">
+      <AdminPostForm :post="loadedPost" @submit="onSubmitted"/>
+    </section>
+  </div>
 </template>
 
 <script>
-  import axios from 'axios';
   import AdminPostForm from "~/components/Admin/AdminPostForm";
 
   export default {
@@ -19,13 +18,14 @@
       AdminPostForm,
     },
     asyncData(context) {
-      return axios.get(`${process.env.baseUrl}/posts/${context.params.postId}.json`)
-          .then(res => {
-            return {
-              loadedPost: { ...res.data, id: context.params.postId },
-            }
-          })
-          .catch(e => context.error());
+      return context.app.$axios
+        .$get(`/posts/${context.params.postId}.json`)
+        .then(data => {
+          return {
+            loadedPost: {...data, id: context.params.postId},
+          }
+        })
+        .catch(e => context.error());
     },
     data() {
 //      return {
@@ -40,10 +40,10 @@
     methods: {
       onSubmitted(editedPost) {
         this.$store.dispatch('editPost', editedPost)
-            .then(() => {
-              this.$router.push('/admin');
-            })
-            .catch()
+          .then(() => {
+            this.$router.push('/admin');
+          })
+          .catch()
       }
     },
     computed: {},
@@ -53,14 +53,14 @@
 </script>
 
 <style scoped>
-    .update-form {
-        width: 90%;
-        margin: 20px auto;
-    }
+  .update-form {
+    width: 90%;
+    margin: 20px auto;
+  }
 
-    @media (min-width: 768px) {
-        .update-form {
-            width: 500px;
-        }
+  @media (min-width: 768px) {
+    .update-form {
+      width: 500px;
     }
+  }
 </style>

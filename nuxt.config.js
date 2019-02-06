@@ -40,12 +40,22 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    '~plugins/core-components.js',
+    '~plugins/date-filter.js',
+  ],
 
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: [
+    '@nuxtjs/axios',
+  ],
+
+  axios: {
+    baseURL: process.env.BASE_URL || 'https://http-de0a4.firebaseio.com',
+    credentials: false,
+  },
 
   /*
    ** Build configuration
@@ -59,7 +69,14 @@ module.exports = {
     }
   },
   env: {
-    baseUrl: process.env.BASE_URL || 'https://http-de0a4.firebaseio.com',
     contentUrl: 'http://serveta.com',
+  },
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        path: '*',
+        components: resolve(__dirname, 'pages/index.vue'),
+      });
+    }
   }
 };
