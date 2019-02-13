@@ -70,6 +70,7 @@ module.exports = {
   },
   env: {
     contentUrl: 'http://serveta.com',
+    fbAPIKey: 'AIzaSyDufpTgX8zOZnsSBchHPQbUtgzgVliT6vQ',
   },
   router: {
     extendRoutes(routes, resolve) {
@@ -77,6 +78,7 @@ module.exports = {
         path: '*',
         components: resolve(__dirname, 'pages/index.vue'),
       });
-    }
+    },
+    // middleware: 'log',
   }
 };
