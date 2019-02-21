@@ -13,6 +13,7 @@
     name: "index",
     scrollToTop: true,
     layout: 'admin',
+    middleware: ['auth', 'check-auth'],
     props: {},
     components: {
       AdminPostForm,

@@ -14,6 +14,7 @@
   export default {
     name: "index",
     scrollToTop: true,
+    middleware: ['auth', 'check-auth'],
     layout: 'admin',
     props: {},
     components: {
