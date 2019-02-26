@@ -1,13 +1,14 @@
 <template>
-<div class="admin-page">
-  <section class="new-post">
-    <AppButton @click="$router.push('/admin/new-post')">Create post</AppButton>
-  </section>
-  <section class="existing-post">
-    <h1>Existing Post</h1>
-    <PostList :isAdmin="true" :posts="loadedPosts"/>
-  </section>
-</div>
+  <div class="admin-page">
+    <section class="new-post">
+      <AppButton @click="$router.push('/admin/new-post')">Create post</AppButton>
+      <AppButton @click="onLogout">Logout</AppButton>
+    </section>
+    <section class="existing-post">
+      <h1>Existing Post</h1>
+      <PostList :isAdmin="true" :posts="loadedPosts"/>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -17,12 +18,16 @@
     middleware: ['auth', 'check-auth'],
     layout: 'admin',
     props: {},
-    components: {
-    },
+    components: {},
     data() {
       return {}
     },
-    methods: {},
+    methods: {
+      onLogout() {
+        this.$store.dispatch('logout');
+        this.$router.push('/admin/auth');
+      },
+    },
     computed: {
       loadedPosts() {
         return this.$store.getters.loadedPosts;
