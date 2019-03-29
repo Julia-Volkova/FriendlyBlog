@@ -22,6 +22,12 @@
     props: {},
     components: {},
     asyncData(context) {
+      // If static app
+      if (context.payload) {
+        return {
+          loadedPost: context.payload.postData,
+        }
+      }
       return context.app.$axios
         .$get(`/posts/${context.params.id}.json`)
           .then(data => {
